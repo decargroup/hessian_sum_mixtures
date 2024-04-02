@@ -1,0 +1,13 @@
+figure.figsize : 4.5, 4.5
+figure.dpi: 120
+text.usetex: True
+font.family : serif 
+font.size : 30
+lines.linewidth : 2
+axes.grid : True 
+grid.linestyle : --
+axes.labelsize :  35
+axes.titlesize :  20
+legend.fontsize:  35
+xtick.labelsize : 20
+ytick.labelsize : 20

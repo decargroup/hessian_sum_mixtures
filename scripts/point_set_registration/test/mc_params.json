@@ -1,0 +1,47 @@
+{
+    "run_id": "psr_3d_GN_full",
+    "dims": 2,
+    "landmark_generation_bounds": [
+        -4,
+        4
+    ],
+    "runs_per_configuration": 1,
+    "num_configurations": 1,
+    "transformation_T_st_list": [
+        [
+            0.9994260796530309,
+            0.03387493630065867,
+            0.32988874413783453,
+            -0.033874936300658666,
+            0.9994260796530309,
+            0.4030484077864994,
+            0.0,
+            0.0,
+            1.0
+        ]
+    ],
+    "angle_range": [
+        -15,
+        15
+    ],
+    "r_range": [
+        -0.5,
+        0.5
+    ],
+    "cluster_size": 5,
+    "cluster_spread": 0.1,
+    "fraction_of_landmarks_to_cluster": 0.6,
+    "num_landmarks": 15,
+    "ref_noise_stddev_bounds": [
+        0.1,
+        0.6
+    ],
+    "meas_noise_stddev_bounds": [
+        0.1,
+        0.6
+    ],
+    "solver": "LM",
+    "step_tol": 1e-08,
+    "gradient_tol": 1e-10,
+    "ftol": 1e-10
+}

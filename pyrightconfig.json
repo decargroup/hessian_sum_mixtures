@@ -1,0 +1,14 @@
+{
+    "include": [
+        "mixtures/**",
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "src/experimental",
+        "src/typestubs",
+        "data/**",
+        "figs/**",
+        "mc_results/**",
+    ],
+}

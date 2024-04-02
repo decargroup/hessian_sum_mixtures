@@ -1,0 +1,5 @@
+setup.py
+mixtures.egg-info/PKG-INFO
+mixtures.egg-info/SOURCES.txt
+mixtures.egg-info/dependency_links.txt
+mixtures.egg-info/top_level.txt
