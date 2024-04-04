@@ -118,7 +118,7 @@ Project Link: [https://github.com/decargroup/hessian_sum_mixtures](https://githu
 [issues-shield]: https://img.shields.io/github/issues/decargroup/hessian_sum_mixtures.svg?style=for-the-badge
 [issues-url]: https://github.com/decargroup/hessian_sum_mixtures/issues
 [license-shield]: https://img.shields.io/github/license/decargroup/hessian_sum_mixtures.svg?style=for-the-badge
-[license-url]: https://github.com/decargroup/hessian_sum_mixtures/blob/master/LICENSE
+[license-url]: https://github.com/decargroup/hessian_sum_mixtures/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://ca.linkedin.com/company/decargroup
 [product-screenshot]: images/screenshot.png
