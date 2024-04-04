@@ -84,7 +84,7 @@ cd ./scripts/bash_scripts_paper_results
 <!-- USAGE EXAMPLES -->
 ## Usage
 The key functionality of this project is in the ```gaussian_mixtures.py``` file in the
-```mixtures`` library. Errors corresponding to the components are provided to initialize 
+```mixtures``` library. Errors corresponding to the components are provided to initialize 
 the Gaussian Mixture factors, which then mix the component errors and Jacobians to provide
 the final mixture error and jacobian. 
 Supplementary material with jacobian derivations is provided in ```supplementary.pdf```. 
