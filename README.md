@@ -58,7 +58,7 @@ cd ./scripts/bash_scripts_paper_results
 <!-- USAGE EXAMPLES -->
 ## Usage
 The key functionality of this project is in the ```gaussian_mixtures.py``` file in the
-```gaussian_mixtures.py``` library. Errors corresponding to the components are provided to initialize 
+```mixtures``` library. Errors corresponding to the components are provided to initialize 
 the Gaussian Mixture factors, which then mix the component errors and Jacobians to provide
 the final mixture error and jacobian. 
 Supplementary material with jacobian derivations is provided in ```supplementary.pdf```. 
@@ -77,9 +77,9 @@ If you find this code useful, please consider citing our arxiv submission,
 ```
 <!-- LICENSE -->
 ## License
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-<!-- CONTACT -->
+
+Distributed under the MIT License. See `LICENSE.txt` for more information. -->
+
 ## Contact
 
 Vassili Korotkine - [@decargroup](https://twitter.com/decargroup) - vassili.korotkine@mail.mcgill.ca
@@ -105,7 +105,7 @@ Project Link: [https://github.com/decargroup/hessian_sum_mixtures](https://githu
 [issues-shield]: https://img.shields.io/github/issues/decargroup/hessian_sum_mixtures.svg?style=for-the-badge
 [issues-url]: https://github.com/decargroup/hessian_sum_mixtures/issues
 [license-shield]: https://img.shields.io/github/license/decargroup/hessian_sum_mixtures.svg?style=for-the-badge
-[license-url]: https://github.com/decargroup/hessian_sum_mixtures/blob/master/LICENSE.txt
+[license-url]: https://github.com/decargroup/hessian_sum_mixtures/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://ca.linkedin.com/company/decargroup
 [product-screenshot]: images/screenshot.png
