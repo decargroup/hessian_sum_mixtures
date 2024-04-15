@@ -218,8 +218,7 @@ class ProblemExtended(Problem):
 
             gain_ratio = (prev_cost - cost) / (0.5 * delta_x.T @ (mu * delta_x - b))
             gain_ratio = gain_ratio.item(0)
-            if np.isnan(gain_ratio):
-                boop = 1
+
             # If the gain ratio is above zero, accept the step
             if gain_ratio > 0:
                 self.variables = variables_test
