@@ -1,0 +1,4 @@
+[submodule "navlie"]
+	path = navlie
+	url = https://github.com/decargroup/navlie
+	branch = hessian_sum_mixture_paper_branch
