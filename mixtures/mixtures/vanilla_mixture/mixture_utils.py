@@ -1,23 +1,18 @@
-import mixtures
-import argparse
+from typing import List, Tuple
 import numpy as np
-from typing import List
-import matplotlib.pyplot as plt
-import scipy
-from scipy.stats import multivariate_normal
-import seaborn as sns
 
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
+from navlie.batch.gaussian_mixtures import GaussianMixtureResidual
+from navlie.batch.gaussian_mixtures import (
+    HessianSumMixtureResidual as HessianSumMixtureResidualStandardCompatibility,
+)
+from navlie.batch.gaussian_mixtures import (
+    MaxMixtureResidual,
+    MaxSumMixtureResidual,
+    SumMixtureResidual,
+)
 from navlie.batch.residuals import PriorResidual
 from navlie.lib.states import VectorState
-from mixtures.gaussian_mixtures import (
-    MaxMixtureResidual,
-    SumMixtureResidual,
-    MaxSumMixtureResidual,
-    HessianSumMixtureResidual,
-    HessianSumMixtureResidualStandardCompatibility,
-)
-
-from typing import Tuple
 
 
 def get_components(dims: int, means: List[float], covariances: List[float]):
@@ -95,13 +90,13 @@ def create_residuals(
         "MM": MaxMixtureResidual(component_residuals, weights),
         "SM": SumMixtureResidual(component_residuals, weights),
         "MSM": MaxSumMixtureResidual(component_residuals, weights, msm_damping_const),
-        "HSM": HessianSumMixtureResidual(
+        "HSM": HessianSumMixtureResidualDirectHessian(
             component_residuals,
             weights,
             use_triggs=False,
             ceres_triggs_patch=False,
         ),
-        "HSM_EXACT": HessianSumMixtureResidual(
+        "HSM_EXACT": HessianSumMixtureResidualDirectHessian(
             component_residuals,
             weights,
             use_triggs=True,

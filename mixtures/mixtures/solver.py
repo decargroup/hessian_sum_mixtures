@@ -8,7 +8,7 @@ from navlie import State, StateWithCovariance
 from navlie import MeasurementModel, Measurement
 from typing import List, Tuple, Hashable
 from navlie.batch.residuals import Residual
-from mixtures.gaussian_mixtures import GaussianMixtureResidual
+from navlie.batch.gaussian_mixtures import GaussianMixtureResidual
 
 from typing import Dict, Hashable, List, Tuple
 from dataclasses import dataclass
@@ -218,8 +218,7 @@ class ProblemExtended(Problem):
 
             gain_ratio = (prev_cost - cost) / (0.5 * delta_x.T @ (mu * delta_x - b))
             gain_ratio = gain_ratio.item(0)
-            if np.isnan(gain_ratio):
-                boop = 1
+
             # If the gain ratio is above zero, accept the step
             if gain_ratio > 0:
                 self.variables = variables_test

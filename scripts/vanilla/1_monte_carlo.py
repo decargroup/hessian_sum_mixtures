@@ -7,11 +7,11 @@ from mixtures.vanilla_mixture.monte_carlo import (
 from mixtures.vanilla_mixture.parser_vanilla import get_parser_vanilla
 
 
+# TODO: Switch to using GMMs from merged version.
 def main(args):
     STATE_KEY = "x"
     mc_dir = os.path.join(args.top_result_dir, args.monte_carlo_run_id)
     Path(mc_dir).mkdir(parents=True, exist_ok=True)
-
     mc_params = MonteCarloRunParameters.from_args(args)
     # args.postprocess_only = True
     if not args.postprocess_only:

@@ -15,8 +15,10 @@ COMPONENT_MULTIPLIER_RANGES=(1 1 4 10 4 10 4 10)
 STEP_TOL=1e-8
 # Two cases: Near and far
 # Near case: 
-NUM_INIT_POS=100
-NUM_MIX=1000
+# NUM_INIT_POS=100
+# NUM_MIX=1000
+NUM_INIT_POS=10
+NUM_MIX=10
 
 # R_MAXES=("10")
 for criterion in ${CONV_CRITERIA[@]}; do

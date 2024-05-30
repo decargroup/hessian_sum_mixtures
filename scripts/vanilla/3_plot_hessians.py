@@ -1,33 +1,27 @@
-from mixtures.vanilla_mixture.mixture_utils import get_component_residuals
 import argparse
-import numpy as np
-from typing import List, Tuple
-import matplotlib.pyplot as plt
-import seaborn as sns
-from joblib import Parallel, delayed
-import pandas as pd
 
-from mixtures.gaussian_mixtures import (
-    GaussianMixtureResidual,
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
+from mixtures.vanilla_mixture.mixture_utils import (
+    create_residuals,
+    get_component_residuals,
+    get_components,
+)
+from navlie.batch.gaussian_mixtures import GaussianMixtureResidual
+from navlie.batch.gaussian_mixtures import (
+    HessianSumMixtureResidual as HessianSumMixtureResidualStandardCompatibility,
+)
+from navlie.batch.gaussian_mixtures import (
     MaxMixtureResidual,
     MaxSumMixtureResidual,
     SumMixtureResidual,
-    HessianSumMixtureResidual,
-    HessianSumMixtureResidualStandardCompatibility,
 )
-from mixtures.vanilla_mixture.mixture_utils import get_components, create_residuals
-from mixtures.vanilla_mixture.plotting import (
-    plot_mixture_1d,
-    plot_residuals_1d,
-    plot_residual_2d,
-)
-
 from navlie.lib.states import VectorState
 
 # from navlie.batch.problem import Problem
-
-from pathlib import Path
-import os
 
 
 parser = argparse.ArgumentParser()
@@ -110,7 +104,7 @@ def main(args):
             weights,
             no_use_complex_numbers=True,
         ),
-        "Exact": HessianSumMixtureResidual(
+        "Exact": HessianSumMixtureResidualDirectHessian(
             component_residuals,
             weights,
             use_triggs=True,

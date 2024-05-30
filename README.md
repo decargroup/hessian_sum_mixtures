@@ -33,6 +33,10 @@ Install general requirements using
 ```
 pip install -r requirements.txt
 ```
+Initialize navlie submodule using
+```
+git submodule update --init 
+```
 Install the navlie submodule, 
 ```
 pip install -e ./navlie

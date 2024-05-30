@@ -1,12 +1,15 @@
 import pytest
 import numpy as np
 from navlie.lib.states import VectorState
-from mixtures.gaussian_mixtures import (
+
+from navlie.batch.gaussian_mixtures import (
     GaussianMixtureResidual,
-    HessianSumMixtureResidual,
 )
+
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
+import pytest
+
 from mixtures.vanilla_mixture.mixture_utils import get_components, create_residuals
-import argparse
 from typing import Dict
 from typing import List, Callable
 from navlie.types import State
@@ -98,7 +101,7 @@ def test_matching_jacobians():
         )
         sm_res: GaussianMixtureResidual = res_dict["SM"]
         msm_res: GaussianMixtureResidual = res_dict["MSM"]
-        hsm_res: HessianSumMixtureResidual = res_dict["HSM"]
+        hsm_res: HessianSumMixtureResidualDirectHessian = res_dict["HSM"]
         # Use all the terms to compute Hessian. Performance is not good for this method,
         # but useful as a test since it gives the exact Hessian for linear errors.
         hsm_res.use_triggs = True
