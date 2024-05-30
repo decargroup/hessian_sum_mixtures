@@ -1,15 +1,13 @@
-import mixtures
-import argparse
+from typing import List, Tuple
+
 import numpy as np
-from typing import List
-from matplotlib import pyplot as plt, cm
-import scipy
+from matplotlib import cm
+from matplotlib import pyplot as plt
 from scipy.stats import multivariate_normal
-import seaborn as sns
-from navlie.batch.residuals import PriorResidual
+
+import mixtures
+from navlie.batch.gaussian_mixtures import GaussianMixtureResidual
 from navlie.lib.states import VectorState
-from mixtures.gaussian_mixtures import GaussianMixtureResidual
-from typing import Tuple
 
 
 def get_plot_bounds(means: List[np.ndarray], covariances: List[np.ndarray]):
@@ -50,9 +48,9 @@ def get_bounds_from_args(args):
 
 def plot_residuals_1d(
     ax: plt.Axes,
-    mm_res: mixtures.gaussian_mixtures.MaxMixtureResidual,
-    sm_res: mixtures.gaussian_mixtures.SumMixtureResidual,
-    msm_res: mixtures.gaussian_mixtures.MaxSumMixtureResidual,
+    mm_res: GaussianMixtureResidual,
+    sm_res: GaussianMixtureResidual,
+    msm_res: GaussianMixtureResidual,
     xmin: float,
     xmax: float,
     cmap: List[int] = None,
@@ -238,7 +236,7 @@ def plot_mixture_2d(
 
 def plot_residual_2d(
     ax: plt.Axes,
-    gm_res: mixtures.gaussian_mixtures.GaussianMixtureResidual,
+    gm_res: GaussianMixtureResidual,
     xmin: float,
     xmax: float,
     ymin: float,

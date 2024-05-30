@@ -3,10 +3,12 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+navlie_deprecated/*
 # Node artifact files
 node_modules/
 dist/
 mc_results/
+mc_results_original/
 
 # figs/*
 temp.pdf 
@@ -51,4 +53,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+*.pkl
+*.csv
+*.json
 

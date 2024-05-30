@@ -1,22 +1,24 @@
-import numpy as np
-from typing import List
 import random
-from pymlg.numpy import SO2, SE2, SE3, SO3
+from typing import Hashable, List, Tuple
+
+import numpy as np
+from pymlg.numpy import SE2, SE3, SO2, SO3
 from scipy import stats
-from typing import Hashable, Tuple
-from navlie.types import State
-from navlie.lib.states import SE2State
-from navlie.batch.residuals import Residual
+
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
 from mixtures.solver import ProblemExtended
-from mixtures.gaussian_mixtures import (
+from navlie.batch.gaussian_mixtures import GaussianMixtureResidual
+from navlie.batch.gaussian_mixtures import (
+    HessianSumMixtureResidual as HessianSumMixtureResidualStandardCompatibility,
+)
+from navlie.batch.gaussian_mixtures import (
     MaxMixtureResidual,
     MaxSumMixtureResidual,
-    HessianSumMixtureResidual,
     SumMixtureResidual,
-    HessianSumMixtureResidualStandardCompatibility,
 )
-from navlie.lib.states import SE3State
-import scipy.linalg as scp_linalg
+from navlie.batch.residuals import Residual
+from navlie.lib.states import SE2State, SE3State
+from navlie.types import State
 
 
 class SinglePointPsrResidual(Residual):
@@ -285,7 +287,7 @@ def solve_psr_problem(
             "MM": MaxMixtureResidual(component_residuals, weights),
             "SM": SumMixtureResidual(component_residuals, weights),
             "MSM": MaxSumMixtureResidual(component_residuals, weights, 10),
-            "HSM": HessianSumMixtureResidual(
+            "HSM": HessianSumMixtureResidualDirectHessian(
                 component_residuals,
                 weights,
                 False,

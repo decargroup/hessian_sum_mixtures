@@ -1,44 +1,33 @@
-from mixtures.vanilla_mixture.mixture_utils import get_component_residuals
-from mixtures.gaussian_mixtures import (
-    GaussianMixtureResidual,
-    MaxMixtureResidual,
-    SumMixtureResidual,
-    MaxSumMixtureResidual,
-    HessianSumMixtureResidual,
-    HessianSumMixtureResidualStandardCompatibility,
-)
-from mixtures.solver import ProblemExtended
-from navlie.lib.states import VectorState
-from collections import namedtuple
-import os
-from pathlib import Path
-
-import numpy as np
-from joblib import Parallel, delayed
-from tqdm import tqdm
-import dill as pickle
-
-from mixtures.solver import ProblemExtended
-from mixtures.vanilla_mixture.mixture_utils import create_residuals
-from navlie.lib.states import VectorState
-from scipy import optimize  # For true x computation
-from scipy.optimize import OptimizeResult
-
-
 import json
+import os
+from collections import namedtuple
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List, Tuple
 
+import dill as pickle
 import numpy as np
+from joblib import Parallel, delayed
+from scipy import optimize  # For true x computation
+from scipy.optimize import OptimizeResult
 from scipy.stats import multivariate_normal
+from tqdm import tqdm
 
-from mixtures.gaussian_mixtures import (
-    GaussianMixtureResidual,
-)
-from mixtures.vanilla_mixture.plotting import get_plot_bounds
-from mixtures.solver import solve_vector_mixture_problem
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
+from mixtures.solver import ProblemExtended, solve_vector_mixture_problem
 from mixtures.vanilla_mixture.mixture_utils import (
     create_residuals,
+    get_component_residuals,
+)
+from mixtures.vanilla_mixture.plotting import get_plot_bounds
+from navlie.batch.gaussian_mixtures import (
+    HessianSumMixtureResidual as HessianSumMixtureResidualStandardCompatibility,
+)
+from navlie.batch.gaussian_mixtures import (
+    GaussianMixtureResidual,
+    MaxMixtureResidual,
+    MaxSumMixtureResidual,
+    SumMixtureResidual,
 )
 from navlie.lib.states import State, VectorState
 
@@ -469,7 +458,7 @@ def run_monte_carlo(
             "MM": MaxMixtureResidual(component_residuals, weights),
             "SM": SumMixtureResidual(component_residuals, weights),
             "MSM": MaxSumMixtureResidual(component_residuals, weights, 10),
-            "HSM": HessianSumMixtureResidual(
+            "HSM": HessianSumMixtureResidualDirectHessian(
                 component_residuals,
                 weights,
                 False,

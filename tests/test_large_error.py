@@ -1,14 +1,13 @@
 import pytest
 import numpy as np
 from navlie.lib.states import VectorState
-from mixtures.gaussian_mixtures import (
+from navlie.batch.gaussian_mixtures import (
     GaussianMixtureResidual,
-    HessianSumMixtureResidual,
 )
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
+import pytest
+
 from mixtures.vanilla_mixture.mixture_utils import get_components, create_residuals
-from typing import Dict
-from typing import List, Callable
-from navlie.types import State
 
 """
 There's an edge case when errors become very high, where their sum evaluates to zero, 
@@ -49,7 +48,7 @@ def test_matching_jacobians():
         )
         sm_res: GaussianMixtureResidual = res_dict["SM"]
         msm_res: GaussianMixtureResidual = res_dict["MSM"]
-        hsm_res: HessianSumMixtureResidual = res_dict["HSM"]
+        hsm_res: HessianSumMixtureResidualDirectHessian = res_dict["HSM"]
         test_points = [VectorState(np.array([1000000, 100000]), 0.0, "x")]
         for test_point in test_points:
             (

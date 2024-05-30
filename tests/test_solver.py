@@ -2,17 +2,20 @@ from typing import List
 import numpy as np
 from mixtures.solver import ProblemExtended
 from navlie.batch.problem import OptimizationSummary, Problem
-from mixtures.gaussian_mixtures import (
-    GaussianMixtureResidual,
+from navlie.batch.gaussian_mixtures import (
     MaxMixtureResidual,
     SumMixtureResidual,
     MaxSumMixtureResidual,
-    HessianSumMixtureResidual,
-    HessianSumMixtureResidualStandardCompatibility,
+    GaussianMixtureResidual,
 )
+from navlie.batch.gaussian_mixtures import (
+    HessianSumMixtureResidual as HessianSumMixtureResidualStandardCompatibility,
+)
+from mixtures.gaussian_mixtures import HessianSumMixtureResidualDirectHessian
 from mixtures.vanilla_mixture.mixture_utils import get_component_residuals
 from mixtures.vanilla_mixture.monte_carlo import GaussianMixtureParameters
 from navlie.lib.states import VectorState
+import pytest
 
 """
 An extended solver is used for these problems, where the user is allowed

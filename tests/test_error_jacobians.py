@@ -1,11 +1,10 @@
-import pytest
 import numpy as np
 from navlie.lib.states import VectorState
-from mixtures.gaussian_mixtures import (
+from navlie.batch.gaussian_mixtures import (
     GaussianMixtureResidual,
 )
 from mixtures.vanilla_mixture.mixture_utils import get_components, create_residuals
-import argparse
+import pytest
 
 
 class mockArgs:
