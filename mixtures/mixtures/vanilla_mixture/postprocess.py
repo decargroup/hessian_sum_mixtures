@@ -41,6 +41,7 @@ def metric_dataframes(
         "Avg Iter.",
         "Conv. Success",
         "Dist. Optimum",
+        "Time (s)",
     ]
     if not read_from_csv:
         for metric in metric_names:
@@ -58,11 +59,6 @@ def metric_dataframes(
                 opt_result: OptimizationResult = OptimizationResult.from_pickle(fname)
                 m: VanillaMixtureMetric = opt_result.compute_metrics()
                 metrics.append(m)
-                # if m.rmse > 0.01:
-                #     print(f"RMSE: {m.rmse}")
-                #     print(OptimizationResult.from_json(fname).gaussian_mix_params)
-                #     print(OptimizationResult.from_json(fname).true_x)
-                #     bonk = 1
             metric_dict["RMSE"][mixture_approach] = np.array([m.rmse for m in metrics])
             metric_dict["NEES"][mixture_approach] = np.array([m.nees for m in metrics])
             metric_dict["ANEES"][mixture_approach] = np.array(
@@ -76,6 +72,9 @@ def metric_dataframes(
             )
             metric_dict["Dist. Optimum"][mixture_approach] = np.array(
                 [m.distance_to_optimum for m in metrics]
+            )
+            metric_dict["Time (s)"][mixture_approach] = np.array(
+                [m.total_time for m in metrics]
             )
 
         for metric in metric_names:
@@ -98,18 +97,11 @@ def average_metric_table(metric_dict: Dict[str, pd.DataFrame], print_table=False
         metric_dict[metric_name] contains a dataframe with
         columns corresponding to the mixtures and rows corresponding to the runs.
     """
-    metric_names = [
-        "RMSE",
-        "NEES",
-        "ANEES",
-        "Avg Iter.",
-        "Conv. Success",
-    ]
     approaches = metric_dict["RMSE"].columns
     average_metrics_dict = {}
     for approach in approaches:
         average_metrics_dict[approach] = {}
-        for metric_name in ["RMSE", "NEES", "ANEES", "Avg Iter."]:
+        for metric_name in ["RMSE", "NEES", "ANEES", "Avg Iter.", "Time (s)"]:
             average_metrics_dict[approach][metric_name] = np.mean(
                 np.array([metric_dict[metric_name][approach]])
             )
@@ -126,7 +118,7 @@ def average_metric_table(metric_dict: Dict[str, pd.DataFrame], print_table=False
     # bop = 1
     df = pd.DataFrame.from_dict(average_metrics_dict)
     df = df.transpose()
-    df_all = df[["RMSE", "NEES", "Avg Iter.", "Converg. Succ. Rate [\%]"]]
+    df_all = df[["RMSE", "NEES", "Avg Iter.", "Converg. Succ. Rate [\%]", "Time (s)"]]
     df_all = df.rename(
         columns={
             "RMSE": "RMSE (m)",
@@ -137,7 +129,7 @@ def average_metric_table(metric_dict: Dict[str, pd.DataFrame], print_table=False
     if print_table:
         print(df)
         print(
-            df_styled.to_latex(column_format="|l|c|c|c|c|c|").replace(
+            df_styled.to_latex(column_format="|l|c|c|c|c|c|c|").replace(
                 "\\\n", "\\ \hline\n"
             )
         )
@@ -163,6 +155,7 @@ def format_df(df: pd.DataFrame):
             "NEES": "{:,.2f}".format,
             "ANEES": "{:,.2f}".format,
             "Avg Iterations": "{:,.2f}".format,
+            "Time (s)": "{:,.2f}".format,
             "Conv. Rate [\%]": "{:,.1f}".format,
         }
     )

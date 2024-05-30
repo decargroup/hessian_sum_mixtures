@@ -24,7 +24,14 @@ parser.add_argument("--dims_list", type=int, nargs="+", default=[2, 3])
 
 
 def main(args):
-    args.mixture_approaches = ["MM", "SM", "MSM", "HSM_STD", "HSM_STD_NO_COMPLEX"]
+    args.mixture_approaches = [
+        "MM",
+        "SM",
+        "MSM",
+        "HSM",
+        "HSM_STD",
+        "HSM_STD_NO_COMPLEX",
+    ]
     sns.set_theme(style="whitegrid")
     df_list = []
     for dims in [2, 3]:
@@ -59,9 +66,10 @@ def main(args):
             "RMSE (deg)": "{:,.2e}".format,
             "RMSE (m)": "{:,.2e}".format,
             "ANEES": "{:,.2e}".format,
+            "Time (s)": "{:,.2e}".format,
             "Avg Iter.": "{:,.2f}".format,
         },
-        min_columns=["RMSE (deg)", "RMSE (m)", "ANEES", "Avg Iter."],
+        min_columns=["RMSE (deg)", "RMSE (m)", "ANEES", "Avg Iter.", "Time (s)"],
         max_columns=None,
     )
 

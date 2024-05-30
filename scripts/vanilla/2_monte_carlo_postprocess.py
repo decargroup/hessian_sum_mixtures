@@ -95,6 +95,7 @@ def main(args):
             "ANEES": "{:,.2e}".format,
             "Iterations": "{:,.2f}".format,
             "Succ. Rate [\%]": "{:,.1f}".format,
+            "Time (s)": "{:,.2e}".format,
         },
         column_format="|*{5}{c|}",
         min_columns=["RMSE", "Iterations"],

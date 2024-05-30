@@ -90,29 +90,6 @@ def main(args):
         "Avg Iter.",
     ]
 
-    for metric in metric_names:
-        plt.figure()
-        ax = plt.gca()
-        # Drop the sum-mixture as its values are bad and mess up the y column scaling
-        df_metric_dict[metric] = df_metric_dict[metric].drop(columns=["SM"])
-        sns.boxplot(
-            data=df_metric_dict[metric],
-            showmeans=True,
-            meanprops={
-                "marker": "s",
-                "markerfacecolor": "white",
-                "markeredgecolor": "blue",
-            },
-        )
-        if metric == "ANEES":
-            ax.axhline(
-                y=1, xmin=0, xmax=1, linestyle="--", color="red", label="Expected"
-            )
-        plt.ylabel(metric)
-        plt.legend()
-        plt.savefig(os.path.join(boxplot_dir, f"{metric}_boxplot.pdf"))
-        plt.close()
-
 
 def solver_params_from_mc_params(mc_params: MonteCarloRunParameters):
     # A bit of copypasterino. TODO: Fix.

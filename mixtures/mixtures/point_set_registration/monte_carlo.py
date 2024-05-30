@@ -309,6 +309,7 @@ class OptimizationResult:
         true_x: State,
         est_x: State,
         info_matrix: np.ndarray,
+        total_time: float = None,
     ):
         self.problem_id = problem_id
         self.problem_params = problem_params
@@ -318,6 +319,7 @@ class OptimizationResult:
         self.true_x = true_x
         self.est_x = est_x
         self.info_matrix = info_matrix
+        self.total_time = total_time
         self.compute_metrics()
 
     def to_pickle(self, fname: str):
@@ -374,6 +376,7 @@ class OptimizationResult:
         distances_to_optimum = np.array(
             [np.linalg.norm(true_x.minus(x)) for x in x_history]
         ).tolist()
+        total_time = opt_nv_res["summary"].time
 
         return OptimizationResult(
             problem_id=problem_id,
@@ -384,6 +387,7 @@ class OptimizationResult:
             true_x=true_x,
             est_x=x_hat,
             info_matrix=info_matrix,
+            total_time=total_time,
         )
 
 
@@ -484,13 +488,7 @@ def metric_dataframes(
     csv_folder=None,
 ):
     metric_dict = {}
-    metric_names = [
-        "RMSE (deg)",
-        "RMSE (m)",
-        "NEES",
-        "ANEES",
-        "Avg Iter.",
-    ]
+    metric_names = ["RMSE (deg)", "RMSE (m)", "NEES", "ANEES", "Avg Iter.", "Time (s)"]
     if not read_from_csv:
         for metric in metric_names:
             metric_dict[metric] = {}
@@ -512,7 +510,6 @@ def metric_dataframes(
                 for opt_result in opt_result_list
             ]
             true_x_list = [opt_result.true_x for opt_result in opt_result_list]
-
             list_of_gaussian_result_list = [
                 GaussianResultList([GaussianResult(x_hat, true_x)])
                 for x_hat, true_x in zip(x_hat_list, true_x_list)
@@ -542,6 +539,9 @@ def metric_dataframes(
             metric_dict["Avg Iter."][mixture_approach] = np.array(
                 [opt_result.num_iterations for opt_result in opt_result_list]
             )
+            metric_dict["Time (s)"][mixture_approach] = np.array(
+                [opt_result.total_time for opt_result in opt_result_list]
+            )
 
         for metric in metric_names:
             df = pd.DataFrame.from_dict(metric_dict[metric])
@@ -563,13 +563,7 @@ def average_metric_table(metric_dict: Dict[str, pd.DataFrame], print_table=True)
         metric_dict[metric_name] contains a dataframe with
         columns corresponding to the mixtures and rows corresponding to the runs.
     """
-    metric_names = [
-        "RMSE (deg)",
-        "RMSE (m)",
-        "NEES",
-        "ANEES",
-        "Avg Iter.",
-    ]
+    metric_names = ["RMSE (deg)", "RMSE (m)", "NEES", "ANEES", "Avg Iter.", "Time (s)"]
 
     approaches = metric_dict["RMSE (deg)"].columns
     average_metrics_dict = {}
@@ -581,7 +575,7 @@ def average_metric_table(metric_dict: Dict[str, pd.DataFrame], print_table=True)
             )
     df = pd.DataFrame.from_dict(average_metrics_dict)
     df = df.transpose()
-    df_all = df[["RMSE (deg)", "RMSE (m)", "ANEES", "NEES", "Avg Iter."]]
+    df_all = df[["RMSE (deg)", "RMSE (m)", "ANEES", "NEES", "Avg Iter.", "Time (s)"]]
     df_all = df.rename(
         columns={
             "Avg Iter.": "Avg Iterations",
@@ -591,7 +585,7 @@ def average_metric_table(metric_dict: Dict[str, pd.DataFrame], print_table=True)
     if print_table:
         print(df)
         print(
-            df_styled.to_latex(column_format="|l|c|c|c|c|c|").replace(
+            df_styled.to_latex(column_format="|l|c|c|c|c|c|c|").replace(
                 "\\\n", "\\ \hline\n"
             )
         )

@@ -5,6 +5,7 @@ import numpy as np
 from navlie import State
 from navlie.batch.gaussian_mixtures import SumMixtureResidual
 from navlie.batch.residuals import Residual, split_up_hessian_by_state
+from typing import Tuple
 
 
 class HessianSumMixtureResidualDirectHessian(SumMixtureResidual):
@@ -187,13 +188,19 @@ class HessianSumMixtureResidualDirectHessian(SumMixtureResidual):
         output_jacs: bool = False,
         use_jacobian_cache=False,
     ) -> List[np.ndarray]:
-        (
-            error_value_list,
-            jacobian_list_of_lists,
-            sqrt_info_matrix_list,
-        ) = self.evaluate_component_residuals(
-            states, compute_jacobians=[True] * len(states)
-        )
+        if not use_jacobian_cache:
+            (
+                error_value_list,
+                jacobian_list_of_lists,
+                sqrt_info_matrix_list,
+            ) = self.evaluate_component_residuals(
+                states, compute_jacobians=[True] * len(states)
+            )
+        else:
+            error_value_list = self.error_value_list_cache
+            jacobian_list_of_lists = self.jacobian_list_of_lists_cache
+            sqrt_info_matrix_list = self.sqrt_info_matrix_list_cache
+
         # Stack all the state jacobians for every residual.
         jacobian_full_list = [
             np.hstack([jac for jac in jac_list if jac is not None])

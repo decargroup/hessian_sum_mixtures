@@ -1,24 +1,12 @@
 import numpy as np
-import pandas as pd
 import pytest
 from pymlg import SE2, SE3
 
-import mixtures.point_set_registration.parser_psr as parser_psr
-from mixtures.point_set_registration.monte_carlo import (
-    MonteCarloRunParameters,
-    OptimizationResult,
-    ProblemParameters,
-)
 from mixtures.point_set_registration.point_set_registration import (
     SinglePointPsrResidual,
     SinglePointPsrResidual3d,
-    corrupt_landmarks_with_noise,
-    generate_random_transformation,
-    problem_setup,
-    solve_psr_problem,
 )
-from mixtures.vanilla_mixture.mixture_utils import create_residuals, get_components
-from navlie.lib.states import SE2State, SE3State, VectorState
+from navlie.lib.states import SE2State, SE3State
 
 
 def test_psr_jacobians_2d():

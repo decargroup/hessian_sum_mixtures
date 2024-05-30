@@ -60,6 +60,7 @@ VanillaMixtureMetric = namedtuple(
         "nees",
         "dof",
         "distance_to_optimum",
+        "total_time",
     ],
 )
 
@@ -94,6 +95,7 @@ class OptimizationResult:
         info_matrix: np.ndarray,
         est_x: State,
         x_history: List[State],
+        total_time: float = None,
     ):
         self.mix_id = mix_id
         self.gaussian_mix_params = gaussian_mix_params
@@ -105,6 +107,7 @@ class OptimizationResult:
         self.info_matrix = info_matrix
         self.est_x = est_x
         self.x_history = x_history
+        self.total_time = total_time
 
     def compute_metrics(self, convergence_threshold=0.01) -> VanillaMixtureMetric:
         self.rmse = np.sqrt(np.sum((self.true_x.minus(self.est_x)).squeeze() ** 2))
@@ -123,6 +126,7 @@ class OptimizationResult:
             self.nees,
             self.true_x.dof,
             self.distances_to_optimum[-1],
+            self.total_time,
         )
 
     def to_pickle(self, fname: str):
@@ -163,7 +167,7 @@ class OptimizationResult:
         ]
         deltas_to_optimum = [x.minus(true_x) for x in x_history]
         est_x: State = opt_nv_res["variables"][key]
-
+        total_time = opt_nv_res["summary"].time
         distances_to_optimum = np.array(
             [np.linalg.norm(true_x.minus(x)) for x in x_history]
         ).tolist()
@@ -179,6 +183,7 @@ class OptimizationResult:
             info_matrix,
             est_x,
             x_history,
+            total_time=total_time,
         )
 
 
