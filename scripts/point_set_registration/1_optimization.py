@@ -70,13 +70,11 @@ def main(args):
             verbose=True,
         )
 
-        result_dict[mixture_approach]: OptimizationResult = (
-            OptimizationResult.from_batch_navlie_result(
-                result,
-                true_x,
-                "P1",
-                problem_params,
-            )
+        result_dict[mixture_approach] = OptimizationResult.from_batch_navlie_result(
+            result,
+            true_x,
+            "P1",
+            problem_params,
         )
         # Save and load the OptimizationResult as a test.
         metric_dict[mixture_approach] = {}
@@ -229,7 +227,6 @@ def solver_params_from_mc_params(mc_params: MonteCarloRunParameters):
             mc_params.ftol if mc_params.convergence_criterion == "rel_cost" else None
         ),
         "tau": mc_params.tau,
-        "initial_normalization_constant_hsm": mc_params.initial_normalization_constant_hsm,
     }
     return solver_params
 

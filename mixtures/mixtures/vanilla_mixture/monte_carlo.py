@@ -210,7 +210,6 @@ class MonteCarloRunParameters:
     ftol: float
     tau: float  # LM parameter
     convergence_criterion: str  # One of "step", "rel_cost", "gradient"
-    initial_normalization_constant_hsm: float
 
     @staticmethod
     def from_args(args):
@@ -261,7 +260,6 @@ class MonteCarloRunParameters:
             ftol=args.ftol,
             tau=args.tau,
             convergence_criterion=args.convergence_criterion,
-            initial_normalization_constant_hsm=args.initial_normalization_constant_hsm,
         )
 
     def to_pickle(self, fname: str):
@@ -476,7 +474,6 @@ def run_monte_carlo(
                 component_residuals,
                 weights,
                 no_use_complex_numbers=True,
-                normalization_constant=mc_params.initial_normalization_constant_hsm,
             ),
         }
         gm_params: GaussianMixtureParameters = gm_params
@@ -536,11 +533,13 @@ def run_monte_carlo(
                     top_result_dir, mc_params.monte_carlo_run_id, approach
                 )
                 Path(res_dir).mkdir(parents=True, exist_ok=True)
+                # fname_gm_params = os.path.join(
 
                 fname = os.path.join(
                     res_dir,
                     f"opt_result_mix_id_{gm_params.mixture_id}_x0_num_{lv2}.pkl",
                 )
+
                 opt_result.to_pickle(fname)
 
         if n_jobs > 1 or n_jobs == -1:

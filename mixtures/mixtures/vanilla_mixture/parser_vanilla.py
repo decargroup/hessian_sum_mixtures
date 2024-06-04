@@ -142,13 +142,6 @@ def get_parser_vanilla():
     )
 
     parser.add_argument(
-        "--initial_normalization_constant_hsm",
-        help="Initial value for the normalization constant in the HSM method. Required for compability with traditional NLS. ",
-        type=float,
-        default=0.1,
-    )
-
-    parser.add_argument(
         "--convergence_criterion",
         help="Which convergence criterion to use. One of:'step', 'rel_cost', 'gradient'\
             which correspond to step size, relative cost decrease, and gradient infinity norm respectively",
