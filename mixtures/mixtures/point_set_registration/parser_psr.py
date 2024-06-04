@@ -176,12 +176,6 @@ def parser() -> argparse.ArgumentParser:
         type=int,
         default=100,
     )
-    parser.add_argument(
-        "--initial_normalization_constant_hsm",
-        help="Initial value for the normalization constant in the HSM method. Required for compability with traditional NLS. ",
-        type=float,
-        default=0.1,
-    )
 
     parser.add_argument(
         "--convergence_criterion",

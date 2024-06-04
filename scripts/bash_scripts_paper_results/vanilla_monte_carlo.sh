@@ -17,8 +17,8 @@ STEP_TOL=1e-8
 # Near case: 
 # NUM_INIT_POS=100
 # NUM_MIX=1000
-NUM_INIT_POS=10
-NUM_MIX=10
+NUM_INIT_POS=1000
+NUM_MIX=1000
 
 # R_MAXES=("10")
 for criterion in ${CONV_CRITERIA[@]}; do
@@ -37,7 +37,6 @@ for criterion in ${CONV_CRITERIA[@]}; do
         --method_initial_position_choice "grid"\
         --n_jobs -1 --monte_carlo_run_id vanilla_many_components_1d${SUFFIX}\
         --convergence_criterion ${criterion} --step_tol ${STEP_TOL}\
-        --initial_normalization_constant_hsm 0.1\
         --top_result_dir ${TOP_RESULT_DIR}
 
     python3 ${CASE_SCRIPT_DIR}1_monte_carlo.py --dims 2\
@@ -50,7 +49,6 @@ for criterion in ${CONV_CRITERIA[@]}; do
         --method_initial_position_choice "grid"\
         --n_jobs -1 --monte_carlo_run_id vanilla_many_components_2d${SUFFIX}\
         --convergence_criterion ${criterion} --step_tol ${STEP_TOL}\
-        --initial_normalization_constant_hsm 0.1\
         --top_result_dir ${TOP_RESULT_DIR}
 
 

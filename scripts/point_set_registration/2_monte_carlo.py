@@ -17,9 +17,11 @@ from mixtures.point_set_registration.monte_carlo import (
     optimize_trials,
     average_metric_table,
 )
+import numpy as np
 
 
 def main(args):
+    np.random.seed(0)
     sns.set_theme(style="whitegrid")
     plt.style.use(args.stylesheet)
     monte_carlo_run_id = args.monte_carlo_run_id
@@ -108,7 +110,6 @@ def solver_params_from_mc_params(mc_params: MonteCarloRunParameters):
             mc_params.ftol if mc_params.convergence_criterion == "rel_cost" else None
         ),
         "tau": mc_params.tau,
-        "initial_normalization_constant_hsm": mc_params.initial_normalization_constant_hsm,
     }
     return solver_params
 

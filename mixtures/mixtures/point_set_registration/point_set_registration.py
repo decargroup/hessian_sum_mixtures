@@ -297,10 +297,7 @@ def solve_psr_problem(
                 component_residuals, weights, no_use_complex_numbers=False
             ),
             "HSM_STD_NO_COMPLEX": HessianSumMixtureResidualStandardCompatibility(
-                component_residuals,
-                weights,
-                no_use_complex_numbers=True,
-                normalization_constant=solver_params["tau"],
+                component_residuals, weights, no_use_complex_numbers=True
             ),
         }
         problem.add_residual(residual_dict[residual_type])

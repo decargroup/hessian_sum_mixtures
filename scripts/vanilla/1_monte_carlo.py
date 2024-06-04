@@ -5,10 +5,12 @@ from mixtures.vanilla_mixture.monte_carlo import (
     run_monte_carlo,
 )
 from mixtures.vanilla_mixture.parser_vanilla import get_parser_vanilla
+import numpy as np
 
 
 # TODO: Switch to using GMMs from merged version.
 def main(args):
+    np.random.seed(0)
     STATE_KEY = "x"
     mc_dir = os.path.join(args.top_result_dir, args.monte_carlo_run_id)
     Path(mc_dir).mkdir(parents=True, exist_ok=True)

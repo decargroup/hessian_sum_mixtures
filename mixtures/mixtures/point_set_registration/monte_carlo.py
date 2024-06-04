@@ -156,7 +156,6 @@ class MonteCarloRunParameters:
     ftol: float
     convergence_criterion: str
     max_iters: int
-    initial_normalization_constant_hsm: float
     tau: float
 
     def __str__(self):
@@ -179,7 +178,6 @@ Step tolerance: {self.step_tol}\n\
 Gradient tolerance: {self.gradient_tol}\n\
 Maximum iterations: {self.max_iters}\n\
 LM tau: {self.tau}\n\
-Initial normalization constant HSM: {self.initial_normalization_constant_hsm}\n\
 ftol: {self.ftol}\n"
         return mc_string
 
@@ -207,7 +205,6 @@ ftol: {self.ftol}\n"
             convergence_criterion=args.convergence_criterion,
             max_iters=args.max_iters,
             tau=args.tau,
-            initial_normalization_constant_hsm=args.initial_normalization_constant_hsm,
         )
 
     def generate_random_transformations(self):
