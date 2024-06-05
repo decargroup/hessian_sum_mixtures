@@ -15,12 +15,11 @@ def max_sum_mixture_norm_constant(alphas: np.ndarray):
 
 
 def proposed_norm_constant(alphas: np.ndarray):
-    msm_constant = max_sum_mixture_norm_constant(alphas)
-    log_constant = alphas.shape[0] * np.abs(np.log(msm_constant))
-
-    return (
-        max(msm_constant, log_constant) + 1
-    )  # The 1 is a fudge factor for numerical round-off errors.
+    alpha_sum = np.sum(alphas)
+    log_sum = 0.0
+    for lv1 in range(alphas.shape[0]):
+        log_sum = log_sum + alphas[lv1] * np.exp(alpha_sum / alphas[lv1])
+    return np.log(log_sum)
 
 
 def delta(fs: np.ndarray, alphas: np.ndarray):
@@ -55,8 +54,11 @@ def main():
             success = False
             alphas = np.abs(np.random.rand(num_components)) * 100
             fs = np.abs(np.random.rand(num_components)) * 1000000
-            if normalization_constant(alphas) - delta(fs, alphas) > 0:
+            if normalization_constant(alphas) + delta(fs, alphas) > 0:
                 success = True
+            else:
+                print("alpha", alphas)
+                bop = 1
             success_list.append(success)
 
         print(
