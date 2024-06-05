@@ -52,7 +52,8 @@ def main(args):
 
     gm_params = opt_result.gaussian_mix_params
     # mixture_approaches = ["MM", "SM", "MSM", "HSM", "HSM_STD", "HSM_STD_NO_COMPLEX"]
-    mixture_approaches = ["HSM", "HSM_STD_NO_COMPLEX"]
+    # mixture_approaches = ["HSM", "HSM_STD_NO_COMPLEX"]
+    mixture_approaches = ["HSM_STD", "HSM"]
     component_residuals = get_component_residuals(
         gm_params.means,
         gm_params.covariances,

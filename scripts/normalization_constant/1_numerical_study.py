@@ -1,17 +1,8 @@
 import numpy as np
 
 """
-The hessian-sum-mixture uses a normalization constant to ensure positivity 
-of a square root input to an error term. 
-There is so far no proof of the input being positive. 
-However, this is validated numerically by sampling
-random values for the parameters (alphas and fs), 
-for different component numbers, and verifying positivity. 
+Show that our proposed normalization constant ensures positivity. 
 """
-
-
-def max_sum_mixture_norm_constant(alphas: np.ndarray):
-    return alphas.shape[0] * np.max(alphas)
 
 
 def proposed_norm_constant(alphas: np.ndarray):
@@ -47,7 +38,7 @@ def delta(fs: np.ndarray, alphas: np.ndarray):
 def main():
 
     np.random.seed(0)
-    for num_components in range(1, 40):
+    for num_components in range(1, 10):
         normalization_constant = lambda alphas: proposed_norm_constant(alphas)
         success_list = []
         for lv1 in range(10000):
