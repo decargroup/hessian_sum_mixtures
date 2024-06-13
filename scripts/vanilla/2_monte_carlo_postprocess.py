@@ -72,7 +72,7 @@ def main(args):
             df["Dims"] = f"{dims}D"
             df["Method"] = df.index
 
-            df.loc[df["Method"] == "HSM_STD_NO_COMPLEX", "Method"] = "NLS HSM"
+            df.loc[df["Method"] == "HSM_STD_NO_COMPLEX", "Method"] = "HSM"
 
             df["Run Name"] = mc_run_name
             df["Case"] = df["Dims"] + " " + df["Run Name"]
@@ -93,11 +93,11 @@ def main(args):
         {
             "RMSE": "{:,.2e}".format,
             "ANEES": "{:,.2e}".format,
-            "Iterations": "{:,.2f}".format,
+            "Iterations": "{:,.1f}".format,
             "Succ. Rate [\%]": "{:,.1f}".format,
             "Time (s)": "{:,.2e}".format,
         },
-        column_format="|*{5}{c|}",
+        column_format="|*{6}{c|}",
         min_columns=["RMSE", "Iterations"],
         max_columns=["Succ. Rate [\%]"],
         drop_columns=["Dims", "NEES", "ANEES", "Method", "Run Name", "Case"],

@@ -59,13 +59,13 @@ parser.add_argument(
 parser.add_argument(
     "--stylesheet",
     help="Stylesheet, plots.",
-    default="/home/vassili/projects/correct_sum_mixtures_/scripts/plotstylesheet_wide.mplstyle",
+    default="/home/vassili/projects/hessian_sum_mixtures/scripts/plotstylesheet_wide.mplstyle",
 )
 
 parser.add_argument(
     "--fig_name",
     help="Figure directory",
-    default="/home/vassili/projects/correct_sum_mixtures_/figs/hessians_test.png",
+    default="/home/vassili/projects/hessian_sum_mixtures/figs/hessians.pdf",
 )
 
 parser.add_argument(
@@ -97,23 +97,25 @@ def main(args):
     weights = args.weights
 
     res_dict = {
-        "Max-Mixture": MaxMixtureResidual(component_residuals, weights),
-        "Max-Sum-Mixture": MaxSumMixtureResidual(component_residuals, weights, 10),
-        "Proposed": HessianSumMixtureResidualStandardCompatibility(
-            component_residuals,
-            weights,
-            no_use_complex_numbers=True,
-        ),
         "Exact": HessianSumMixtureResidualDirectHessian(
             component_residuals,
             weights,
             use_triggs=True,
             ceres_triggs_patch=False,
         ),
+        "Proposed": HessianSumMixtureResidualStandardCompatibility(
+            component_residuals,
+            weights,
+            no_use_complex_numbers=True,
+        ),
+        "Max-Mixture": MaxMixtureResidual(component_residuals, weights),
+        "Max-Sum-Mixture": MaxSumMixtureResidual(component_residuals, weights, 10),
+        "Sum-Mixture": SumMixtureResidual(component_residuals, weights),
     }
     linestyle_dict = {
         "Max-Mixture": "--",
         "Max-Sum-Mixture": "--",
+        "Sum-Mixture": "--",
         "Exact": "-",
         "Proposed": "-",
     }
@@ -139,6 +141,9 @@ def main(args):
     plt.legend()
     plt.xlabel("Residual")
     plt.ylabel("Hessian")
+    import os
+
+    print(os.path.abspath(args.fig_name))
     plt.savefig(args.fig_name, bbox_inches="tight")
 
 
