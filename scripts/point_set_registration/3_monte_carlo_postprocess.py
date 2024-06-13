@@ -63,10 +63,10 @@ def main(args):
     format_multiindexed_df(
         df,
         {
-            "RMSE (deg)": "{:,.2e}".format,
-            "RMSE (m)": "{:,.2e}".format,
-            "ANEES": "{:,.2e}".format,
-            "Time (s)": "{:,.2e}".format,
+            "RMSE (deg)": "{:,.2f}".format,
+            "RMSE (m)": "{:,.2f}".format,
+            "ANEES": "{:,.2f}".format,
+            "Time (s)": "{:,.2f}".format,
             "Avg Iter.": "{:,.2f}".format,
         },
         min_columns=["RMSE (deg)", "RMSE (m)", "ANEES", "Avg Iter.", "Time (s)"],

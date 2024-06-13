@@ -37,7 +37,7 @@ def highlight_min(data: pd.DataFrame, highlight_max=False):
 def format_multiindexed_df(
     df_metric: pd.DataFrame,
     floating_point_format_dict: Dict,
-    column_format="|*{6}{c|}",
+    column_format="|*{7}{c|}",
     min_columns=None,
     max_columns=None,
     drop_columns=["Dims", "NEES", "Method", "Run Name", "Case"],
