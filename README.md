@@ -61,8 +61,9 @@ cd ./scripts/bash_scripts_paper_results
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-The key functionality of this project is in the ```gaussian_mixtures.py``` file in the
-```mixtures``` library. Errors corresponding to the components are provided to initialize 
+The key functionality of this project has been merged into the navlie library
+at https://github.com/decargroup/navlie/blob/main/navlie/batch/gaussian_mixtures.py. 
+Errors corresponding to the components are provided to initialize 
 the Gaussian Mixture factors, which then mix the component errors and Jacobians to provide
 the final mixture error and jacobian. 
 Supplementary material with jacobian derivations is provided in ```supplementary.pdf```. 
