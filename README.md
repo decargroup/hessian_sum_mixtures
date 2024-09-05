@@ -24,10 +24,13 @@
     Our method explicitly uses the chain rule
     to take into account the LogSumExp nonlinearity proper to negative log-likelihoods of Gaussian Mixtures. 
     A method to maintain compatibility with standard nonlinear least-squares solvers is provided. This repository contains the companion code 
-    and supplementary material for our submission to IEEE Robotics and Automation Letters titled "A Hessian for Gaussian Mixture Likelihoods in Nonlinear Least Squares".
+    and supplementary material for our paper in IEEE Robotics and Automation Letters titled "A Hessian for Gaussian Mixture Likelihoods in Nonlinear Least Squares". 
   </p>
 </div>
 
+
+The published article may be found [here](https://ieeexplore.ieee.org/document/10607873),
+    and the arXiv version may be found [here](https://arxiv.org/abs/2404.05452). The arXiv version also contains the supplementary material. 
 ## Getting Started
 Install general requirements using
 ```
@@ -69,21 +72,23 @@ the final mixture error and jacobian.
 Supplementary material with jacobian derivations is provided in ```supplementary.pdf```. 
 
 ## Citation
-If you find this code useful, please consider citing our arxiv submission, 
+If you find this code useful, please consider citing our article, 
 ```
-@misc{korotkine2024hessian,
-      title={A Hessian for Gaussian Mixture Likelihoods in Nonlinear Least Squares}, 
-      author={Vassili Korotkine and Mitchell Cohen and James Richard Forbes},
-      year={2024},
-      eprint={2404.05452},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO}
-}
+@ARTICLE{10607873,
+  author={Korotkine, Vassili and Cohen, Mitchell and Forbes, James Richard},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={A Hessian for Gaussian Mixture Likelihoods in Nonlinear Least Squares}, 
+  year={2024},
+  volume={9},
+  number={9},
+  pages={7891-7898},
+  keywords={Optimization;Simultaneous localization and mapping;Optimization methods;State estimation;Standards;Newton method;Jacobian     matrices;Localization;optimization and optimal control;probabilistic inference;sensor fusion;SLAM},
+  doi={10.1109/LRA.2024.3432350}}
 ```
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information. -->
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
