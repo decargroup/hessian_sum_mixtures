@@ -78,18 +78,17 @@ def jacobian_fd(
 
 
 def test_matching_jacobians():
-    args1 = mockArgs(1, [1], [1], [3])
-    args2 = mockArgs(1, [0.5, 0.5], [0, 0], [1, 1])
-    args3 = mockArgs(2, [0.5, 0.5], [0.5, 1.5, 1.5, 0.5], [2, 0, 0, 2, 1, 0, 0, 1])
-    args4 = mockArgs(
+    np.random.seed(0)
+
+    args1 = mockArgs(2, [0.5, 0.5], [0.5, 1.5, 1.5, 0.5], [2, 0, 0, 2, 1, 0, 0, 1])
+    args2 = mockArgs(
         2,
         [0.3, 0.3, 0.3],
         [1, 2, 3, 4, 5, 6],
         [0.5, 0, 0, 0.5, 0.2, 0, 0, 0.2, 1, 0, 0, 1],
     )
 
-    # for args in [args1, args2, args3, args4]:
-    for args in [args3]:
+    for args in [args1, args2]:
         dims = args.dims
         means, covariances = get_components(args.dims, args.means, args.covariances)
         n_x = means[0].shape[0]
@@ -150,9 +149,10 @@ def test_matching_jacobians():
                 jac_hsm_std_list_wrt_err[0].T @ e_hsm_std.reshape(-1, 1)
             ).T
 
-            e_hsm_no_complex, jac_hsm_no_complex_list_wrt_err = hsm_std_res.evaluate(
+            e_hsm_no_complex, jac_hsm_no_complex_list_wrt_err = hsm_no_complex.evaluate(
                 [test_point], [True]
             )
+
             jac_loss_hsm_no_complex = (
                 jac_hsm_no_complex_list_wrt_err[0].T @ e_hsm_no_complex.reshape(-1, 1)
             ).T
@@ -188,6 +188,8 @@ def test_matching_jacobians():
             hessian_hsm = hessian_hsm_list[0][0]
 
             assert np.linalg.norm(hessian_fd - hessian_hsm, "fro") < 1e-5
+
+    print("Matching Jacobian test passed")
 
 
 if __name__ == "__main__":

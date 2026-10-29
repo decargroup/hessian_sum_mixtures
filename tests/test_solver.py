@@ -48,7 +48,7 @@ def test_solver_cost_histories():
         "SM": SumMixtureResidual(component_residuals, weights),
         "MSM": MaxSumMixtureResidual(component_residuals, weights, 10),
         "HSM_STD_NO_COMPLEX": HessianSumMixtureResidualStandardCompatibility(
-            component_residuals, weights, True, 0.1
+            component_residuals, weights, True
         ),
     }
     solver = "LM"
@@ -77,8 +77,7 @@ def test_solver_cost_histories():
             result_list.append(problem.solve())
         res_ext: OptimizationSummary = result_list[0]["summary"]
         res_std: OptimizationSummary = result_list[1]["summary"]
-        for lv1, cost_std_val in enumerate(res_std.entire_cost):
-            cost_ext_val = res_ext.entire_cost[lv1]
+        for cost_ext_val, cost_std_val in zip(res_ext.cost, res_std.cost):
             assert np.abs(cost_ext_val - cost_std_val) < 1e-2
 
 

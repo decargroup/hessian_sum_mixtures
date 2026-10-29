@@ -24,7 +24,7 @@ class mockArgs:
         self.dims = dims
 
 
-def test_matching_jacobians():
+def test_large_error():
     args1 = mockArgs(1, [1], [1], [3])
     args2 = mockArgs(1, [0.5, 0.5], [0, 0], [1, 1])
     args3 = mockArgs(2, [0.5, 0.5], [0.5, 1.5, 1.5, 0.5], [2, 0, 0, 2, 1, 0, 0, 1])
@@ -67,11 +67,10 @@ def test_matching_jacobians():
                 [test_point], [True], True
             )
             e_sm, _ = sm_res.evaluate([test_point], [True])
-            jac_sm_list_wrt_err, info_dict_sm = sm_res.mix_jacobians(
+            jac_sm_list_wrt_err = sm_res.mix_jacobians(
                 error_value_list,
                 jacobian_list_of_lists,
                 sqrt_info_matrix_list,
-                output_details=True,
             )
 
             jac_loss_sm = (jac_sm_list_wrt_err[0].T @ e_sm.reshape(-1, 1)).T
